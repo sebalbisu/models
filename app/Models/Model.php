@@ -6,22 +6,22 @@ use App\Repository;
 
 abstract class Model
 {
-	/**
-	 * @var integer
-	 */
-	protected $id;
+    /**
+     * @var integer
+     */
+    protected $id;
 
-	static public function repository()
-	{
-		return new Repository\Model(static::class);
-	}
+    static public function repository()
+    {
+        return new Repository\Model(static::class);
+    }
 
-	/**
-	 * @return int
-	 */
-	public function getId()
-	{
-		return $this->id;
-	}
+    /**
+     * @return int
+     */
+    public function getId()
+    {
+        return $this->id;
+    }
 
 }

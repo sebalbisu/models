@@ -11,90 +11,90 @@ use App\Storage\Memory;
 
 class EmpresaTest extends TestCase
 {
-	protected $model;
+    protected $model;
 
-	protected $repo;
+    protected $repo;
 
-	protected $storage;
+    protected $storage;
 
-	public function setUp()
-	{
-		Memory::clear();
-		$this->empresa = new Empresa();
-		$this->repo = Empresa::repository();
-		$this->storage = $this->repo->getStorage();
-	}
+    public function setUp()
+    {
+        Memory::clear();
+        $this->empresa = new Empresa();
+        $this->repo = Empresa::repository();
+        $this->storage = $this->repo->getStorage();
+    }
 
-	/**
-     * @expectedException 	App\Models\Extras\Exception
-	 */
-	public function testAddEmpleados_not_stored_empresa()
-	{
-		$this->empresa->addEmpleado($empleado1 = new Programador());
-	}
+    /**
+     * @expectedException     App\Models\Extras\Exception
+     */
+    public function testAddEmpleados_not_stored_empresa()
+    {
+        $this->empresa->addEmpleado($empleado1 = new Programador());
+    }
 
-	public function testAddEmpleados()
-	{
-		$this->repo->create($this->empresa);
+    public function testAddEmpleados()
+    {
+        $this->repo->create($this->empresa);
 
-		$this->empresa->addEmpleado($empleado1 = new Programador());
-		$this->empresa->addEmpleado($empleado2 = new Diseñador());
-		$this->empresa->addEmpleado($empleado3 = new Programador());
+        $this->empresa->addEmpleado($empleado1 = new Programador());
+        $this->empresa->addEmpleado($empleado2 = new Diseñador());
+        $this->empresa->addEmpleado($empleado3 = new Programador());
 
-		$this->assertCount(3, $this->empresa->allEmpleados());		
-	}
+        $this->assertCount(3, $this->empresa->allEmpleados());        
+    }
 
-	public function testAllEmpleados_from_storage()
-	{
-		$this->repo->create($this->empresa);
+    public function testAllEmpleados_from_storage()
+    {
+        $this->repo->create($this->empresa);
 
-		$this->empresa->addEmpleado($empleado1 = new Programador());
-		$this->empresa->addEmpleado($empleado2 = new Diseñador());
-		$this->empresa->addEmpleado($empleado3 = new Programador());
+        $this->empresa->addEmpleado($empleado1 = new Programador());
+        $this->empresa->addEmpleado($empleado2 = new Diseñador());
+        $this->empresa->addEmpleado($empleado3 = new Programador());
 
-		$empresa = $this->repo->find($this->empresa->getId());
+        $empresa = $this->repo->find($this->empresa->getId());
 
-		$this->assertCount(3, $empresa->allEmpleados());
-	}
+        $this->assertCount(3, $empresa->allEmpleados());
+    }
 
-	public function testRemoveEmpleado()
-	{
-		$this->repo->create($this->empresa);
+    public function testRemoveEmpleado()
+    {
+        $this->repo->create($this->empresa);
 
-		$this->empresa->addEmpleado($empleado1 = new Programador());
-		$this->empresa->addEmpleado($empleado2 = new Diseñador());
+        $this->empresa->addEmpleado($empleado1 = new Programador());
+        $this->empresa->addEmpleado($empleado2 = new Diseñador());
 
-		$this->empresa->removeEmpleado($empleado1);
+        $this->empresa->removeEmpleado($empleado1);
 
-		$this->assertCount(1, $this->empresa->allEmpleados());
-		$this->assertCount(1, $this->empresa->allEmpleados($refresh = true));
-	}	
+        $this->assertCount(1, $this->empresa->allEmpleados());
+        $this->assertCount(1, $this->empresa->allEmpleados($refresh = true));
+    }    
 
-	public function testPromedioEdadEmpleados()
-	{
-		$this->repo->create($this->empresa);
+    public function testPromedioEdadEmpleados()
+    {
+        $this->repo->create($this->empresa);
 
-		$edades = [];
-		foreach(range(1,rand(4, 9)) as $i){
-			$edades[] = $last = rand(18, 65);
-			$empleado = new Programador();
-			$empleado->setEdad($last);
-			$this->empresa->addEmpleado($empleado);
-		}
+        $edades = [];
+        foreach(range(1,rand(4, 9)) as $i){
+            $edades[] = $last = rand(18, 65);
+            $empleado = new Programador();
+            $empleado->setEdad($last);
+            $this->empresa->addEmpleado($empleado);
+        }
 
-		$this->assertEquals(
-			array_sum($edades)/count($edades), 
-			$this->empresa->getPromedioEdadEmpleados()
-		);
-	}
+        $this->assertEquals(
+            array_sum($edades)/count($edades), 
+            $this->empresa->getPromedioEdadEmpleados()
+        );
+    }
 
-	public function testFindEmpleado()
-	{
-		$this->repo->create($this->empresa);
+    public function testFindEmpleado()
+    {
+        $this->repo->create($this->empresa);
 
-		$this->empresa->addEmpleado($empleado1 = new Programador());
-		$this->empresa->addEmpleado($empleado2 = new Diseñador());
+        $this->empresa->addEmpleado($empleado1 = new Programador());
+        $this->empresa->addEmpleado($empleado2 = new Diseñador());
 
-		$this->assertEquals($empleado1, $this->empresa->findEmpleado($empleado1->getId()));
-	}			
+        $this->assertEquals($empleado1, $this->empresa->findEmpleado($empleado1->getId()));
+    }            
 }

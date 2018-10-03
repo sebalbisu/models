@@ -6,5 +6,5 @@ use App\Models\Extras\ChildTrait;
 
 class ChildMock extends ParentMock
 {
-	use ChildTrait;
+    use ChildTrait;
 }

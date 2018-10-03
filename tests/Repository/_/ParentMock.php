@@ -6,17 +6,17 @@ use App\Models\Extras\ParentTrait;
 
 class ParentMock extends Model
 {
-	use ParentTrait;
+    use ParentTrait;
 
-	protected $name;
+    protected $name;
 
-	public function getName()
-	{
-		return $this->name;
-	}
+    public function getName()
+    {
+        return $this->name;
+    }
 
-	public function setName(string $name)
-	{
-		return $this->name = $name;
-	}		
+    public function setName(string $name)
+    {
+        return $this->name = $name;
+    }        
 }

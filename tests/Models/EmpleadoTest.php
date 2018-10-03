@@ -11,38 +11,38 @@ use App\Storage\Memory;
 
 class EmpleadoTest extends TestCase
 {
-	protected $empleado;
+    protected $empleado;
 
-	protected $repo;
+    protected $repo;
 
-	protected $storage;
+    protected $storage;
 
-	public function setUp()
-	{
-		Memory::clear();
-		$this->empleado = new Programador();
-		$this->repo = $this->empleado::repository();
-		$this->storage = $this->repo->getStorage();
-	}
+    public function setUp()
+    {
+        Memory::clear();
+        $this->empleado = new Programador();
+        $this->repo = $this->empleado::repository();
+        $this->storage = $this->repo->getStorage();
+    }
 
-	public function test_same_repo_abstract_concrete()
-	{
-		$this->assertEquals(Empleado::repository(), Programador::repository());
-	}
+    public function test_same_repo_abstract_concrete()
+    {
+        $this->assertEquals(Empleado::repository(), Programador::repository());
+    }
 
-	public function testGetEmpresa_notfound()
-	{
-		$this->assertNull($this->empleado->getEmpresa());
-	}
+    public function testGetEmpresa_notfound()
+    {
+        $this->assertNull($this->empleado->getEmpresa());
+    }
 
-	public function testGetSetEmpresa()
-	{
-		$empresa = new Empresa();
+    public function testGetSetEmpresa()
+    {
+        $empresa = new Empresa();
 
-		$empresa::repository()->create($empresa);
+        $empresa::repository()->create($empresa);
 
-		$this->empleado->setEmpresa($empresa);
+        $this->empleado->setEmpresa($empresa);
 
-		$this->assertEquals($empresa->getId(), $this->empleado->getEmpresa()->getId());
-	}	
+        $this->assertEquals($empresa->getId(), $this->empleado->getEmpresa()->getId());
+    }    
 }

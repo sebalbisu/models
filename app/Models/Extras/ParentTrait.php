@@ -6,8 +6,8 @@ use App\Repository\Model as Repo;
 
 trait ParentTrait 
 {
-	static public function repository()
-	{
-		return new Repo(self::class);
-	}
+    static public function repository()
+    {
+        return new Repo(self::class);
+    }
 }
